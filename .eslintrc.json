@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint", //该依赖包允许你使用一些实验特性的时候，依然能够用上Eslint语法检查
+  "env": {
+    "es6": true, //会使能所有的ECMAScript6的特性除了模块(这个功能在设置ecmaVersion版本为6的时候会自动设置)
+    "commonjs": true,
+    "node": true //会添加所有的全局变量比如global
+  },
+  "rules": {
+    "indent": ["error", 2], //换行缩进 2个空格
+    "quotes": [
+      "error",
+      "single", //单引号
+      {
+        "allowTemplateLiterals": true //允许模板字符串 `...`
+      }
+    ], 
+    "semi": ["error", "always"], // always:要求在语句末尾使用分号  never:禁止在语句末尾使用分号 
+    "no-trailing-spaces": ["error", { "ignoreComments": true }], //禁止使用行尾空白 空格差异可以被源码控制系统识别出并被标记为差异
+    "no-console": "off" //off error
+  }
+}

@@ -1,14 +1,14 @@
-const router = require('koa-router')()
+const router = require('koa-router')();
 
-router.prefix('/users')
+router.prefix('/users');
 
 router.get('/', function (ctx, next) {
-  ctx.body = 'this is a users response!'
-})
+  ctx.body = 'this is a users response!';
+});
 
 router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
+  ctx.body = 'this is a users/bar response';
+});
 
 router.post('/login', async (ctx, next) => {
   console.log(ctx.request.body);
@@ -17,7 +17,7 @@ router.post('/login', async (ctx, next) => {
     code: 100,
     userName,
     password
-  }
-})
+  };
+});
 
-module.exports = router
+module.exports = router;

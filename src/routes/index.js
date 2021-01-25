@@ -1,4 +1,4 @@
-const router = require('koa-router')()
+const router = require('koa-router')();
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
@@ -7,41 +7,41 @@ router.get('/', async (ctx, next) => {
     blogList: [
       {
         id: 1,
-        title:"aaa"
+        title: 'aaa'
       },
       {
         id: 2,
-        title:"bbb"
+        title: 'bbb'
       },
       {
         id: 3,
-        title:"ccc"
+        title: 'ccc'
       },
       {
         id: 4,
-        title:"ddd"
+        title: 'ddd'
       }
     ]
-  })
-})
+  });
+});
 
 router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
+  ctx.body = 'koa2 string';
+});
 
 router.get('/json', async (ctx, next) => {
   ctx.body = {
     title: 'koa2 json'
-  }
-})
+  };
+});
 
 router.get('/profile/:userName', async (ctx, next) => {
   const { userName } = ctx.params;
   ctx.body = {
     title: 'this is profile page',
     userName
-  }
-})
+  };
+});
 
 router.get('/loadMore/:userName/:pageIndex', async (ctx, next) => {
   const { userName, pageIndex } = ctx.params;
@@ -49,7 +49,7 @@ router.get('/loadMore/:userName/:pageIndex', async (ctx, next) => {
     title: 'this is loadMore API',
     userName,
     pageIndex
-  }
-})
+  };
+});
 
-module.exports = router
+module.exports = router;
