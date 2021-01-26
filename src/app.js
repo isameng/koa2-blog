@@ -5,6 +5,9 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
+const session = require('koa-generic-session');
+const redisStore = require('koa-redis');
+const { REDIS_CONF } = require('./config/db');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -30,6 +33,23 @@ app.use(require('koa-static')(__dirname + '/public'));
 app.use(
   views(__dirname + '/views', {
     extension: 'ejs'
+  })
+);
+
+//session 配置
+app.keys = ['UIsdf_7878#$'];
+app.use(
+  session({
+    key: 'blog.sid', // cookie name 默认是 'koa.sid'
+    prefix: 'blog:sess:', //redis key 的前缀，默认是 'koa:sess:'
+    cookie: {
+      path: '/', //cookie在所有目录可以访问
+      httpOnly: true, //只允许server端修改cookie
+      maxAge: 24 * 60 * 60 * 1000 //ms 过期时间
+    },
+    store: redisStore({
+      all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
+    })
   })
 );
 
