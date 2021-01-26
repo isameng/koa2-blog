@@ -8,12 +8,22 @@ const logger = require('koa-logger');
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
 const { REDIS_CONF } = require('./config/db');
+const { isProd } = require('./utils/env');
 
+//路由
 const index = require('./routes/index');
 const users = require('./routes/users');
+const errorViewRouter = require('./routes/view/error');
 
 // koa-onerror 会自动地把err.status当作response的status code, 而且自动地把err.headers当作response的headers。
-onerror(app);
+let onerrorConf = {};
+if (isProd) {
+  // 线上环境 遇到错误的时候 跳转到 error路径
+  onerrorConf = {
+    redirect: '/error'
+  };
+}
+onerror(app, onerrorConf);
 
 // middlewares
 // POST请求 bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body中
@@ -64,6 +74,8 @@ app.use(async (ctx, next) => {
 // routes  allowedMethods: status为空或者404时，koa会自动设置header一些信息，并且直接返回失败
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+// 404路由注册到最后面
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods());
 
 // error 事件侦听器
 app.on('error', (err, ctx) => {
