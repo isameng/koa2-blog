@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 
 router.get('/', async (ctx, next) => {
+  // debugger; 通过inspect用chrome调试 chrome://inspect
   await ctx.render('index', {
     title: 'Hello Koa 2!',
     isMe: true,
