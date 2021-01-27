@@ -9,6 +9,7 @@ const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
 const { REDIS_CONF } = require('./config/db');
 const { isProd } = require('./utils/env');
+const { SESSION_SECRET_KEY } = require('./config/secretKeys');
 
 //路由
 const index = require('./routes/index');
@@ -48,7 +49,7 @@ app.use(
 );
 
 //session 配置
-app.keys = ['UIsdf_7878#$']; //加密cookie的随机字符串
+app.keys = [SESSION_SECRET_KEY]; //加密cookie的随机字符串
 app.use(
   session({
     key: 'blog.sid', // cookie name 默认是 'koa.sid'
