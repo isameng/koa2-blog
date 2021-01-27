@@ -12,7 +12,8 @@ const { isProd } = require('./utils/env');
 
 //路由
 const index = require('./routes/index');
-const users = require('./routes/users');
+const userViewRouter = require('./routes/view/user');
+const userAPIRouter = require('./routes/api/user');
 const errorViewRouter = require('./routes/view/error');
 
 // koa-onerror 会自动地把err.status当作response的status code, 而且自动地把err.headers当作response的headers。
@@ -73,7 +74,8 @@ app.use(async (ctx, next) => {
 
 // routes  allowedMethods: status为空或者404时，koa会自动设置header一些信息，并且直接返回失败
 app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
+app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods());
 // 404路由注册到最后面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods());
 

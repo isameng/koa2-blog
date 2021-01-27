@@ -4,7 +4,7 @@
  */
 
 const sequelize = require('./seq');
-// require('./model')
+require('./model/index');
 
 sequelize
   .authenticate()
