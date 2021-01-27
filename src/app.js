@@ -47,7 +47,7 @@ app.use(
 );
 
 //session 配置
-app.keys = ['UIsdf_7878#$'];
+app.keys = ['UIsdf_7878#$']; //加密cookie的随机字符串
 app.use(
   session({
     key: 'blog.sid', // cookie name 默认是 'koa.sid'
