@@ -66,12 +66,12 @@ app.use(
 );
 
 // 手动输出log
-app.use(async (ctx, next) => {
-  const start = new Date();
-  await next();
-  const ms = new Date() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
-});
+// app.use(async (ctx, next) => {
+//   const start = new Date();
+//   await next();
+//   const ms = new Date() - start;
+//   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+// });
 
 // routes  allowedMethods: status为空或者404时，koa会自动设置header一些信息，并且直接返回失败
 app.use(index.routes(), index.allowedMethods());

@@ -3,7 +3,8 @@
  * @author ameng
  */
 
-const User = require('../db/model/User');
+// services 的功能只对数据进行维护和管理, 不涉及到业务 业务都在controller
+const { User } = require('../db/model/index');
 const { formatUser } = require('./_format');
 
 /**
@@ -51,7 +52,22 @@ async function createUser({ userName, password, gender = 3, nickName }) {
   return result.dataValues;
 }
 
+/**
+ * 删除用户
+ * @param {string} userName 用户名
+ */
+async function deleteUser(userName) {
+  const delUserRes = await User.destroy({
+    where: {
+      userName
+    }
+  });
+  // delUserRes 删除的行数
+  return delUserRes > 0;
+}
+
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  deleteUser
 };
