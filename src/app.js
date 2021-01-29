@@ -7,14 +7,18 @@ const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
+const koaStatic = require('koa-static');
+const path = require('path');
+
 const { REDIS_CONF } = require('./config/db');
 const { isProd } = require('./utils/env');
 const { SESSION_SECRET_KEY } = require('./config/secretKeys');
 
 //路由
 const index = require('./routes/index');
-const userViewRouter = require('./routes/view/user');
+const utilsAPIRouter = require('./routes/api/utils');
 const userAPIRouter = require('./routes/api/user');
+const userViewRouter = require('./routes/view/user');
 const errorViewRouter = require('./routes/view/error');
 
 // koa-onerror 会自动地把err.status当作response的status code, 而且自动地把err.headers当作response的headers。
@@ -39,7 +43,8 @@ app.use(json());
 // 在命令行打印log
 app.use(logger());
 // 注册静态资源
-app.use(require('koa-static')(__dirname + '/public'));
+app.use(koaStatic(__dirname + '/public'));
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')));
 
 // 加载模板引擎
 app.use(
@@ -77,6 +82,7 @@ app.use(
 app.use(index.routes(), index.allowedMethods());
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods());
+app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods());
 // 404路由注册到最后面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods());
 
