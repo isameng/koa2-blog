@@ -15,9 +15,9 @@ const { isProd } = require('./utils/env');
 const { SESSION_SECRET_KEY } = require('./config/secretKeys');
 
 //路由
-const index = require('./routes/index');
 const utilsAPIRouter = require('./routes/api/utils');
 const userAPIRouter = require('./routes/api/user');
+const blogViewRouter = require('./routes/view/blog');
 const userViewRouter = require('./routes/view/user');
 const errorViewRouter = require('./routes/view/error');
 
@@ -79,7 +79,7 @@ app.use(
 // });
 
 // routes  allowedMethods: status为空或者404时，koa会自动设置header一些信息，并且直接返回失败
-app.use(index.routes(), index.allowedMethods());
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods());
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods());
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods());

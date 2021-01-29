@@ -33,8 +33,12 @@ async function loginRedirect(ctx, next) {
     return;
   }
   //未登录
-  const curUrl = ctx.url;
-  ctx.redirect('/login?url=' + encodeURIComponent(curUrl));
+  // const curUrl = ctx.url;
+  let curUrl = '/login';
+  if(ctx.url !== '/') {
+    curUrl = curUrl + '?url=' + encodeURIComponent(ctx.url);
+  }
+  ctx.redirect(curUrl);
 }
 
 module.exports = {
