@@ -6,6 +6,7 @@
 const { SuccessModel } = require('../model/ResModel');
 const { createBlog } = require('../services/blog');
 const { createBlogFailInfo } = require('../model/ErrorInfo');
+const xss = require('xss');
 
 /**
  * 创建博客
@@ -15,7 +16,7 @@ const { createBlogFailInfo } = require('../model/ErrorInfo');
  */
 async function create({ userId, content, image }) {
   try {
-    const blog = await createBlog({ userId, content, image });
+    const blog = await createBlog({ userId, content: xss(content), image });
     return new SuccessModel(blog);
   } catch (ex) {
     console.log(ex.message, ex.stack); //stack 错误堆栈信息
