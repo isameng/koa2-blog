@@ -3,7 +3,7 @@
  * @author ameng
  */
 
-const { SuccessModel } = require('../model/ResModel');
+const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { createBlog } = require('../services/blog');
 const { createBlogFailInfo } = require('../model/ErrorInfo');
 const xss = require('xss');

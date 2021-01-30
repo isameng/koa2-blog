@@ -4,6 +4,7 @@
  */
 
 const { DEFAULT_PICTURE } = require('../config/constant');
+const { timeFormat } = require('../utils/dt');
 
 /**
  * 用户默认头像
@@ -36,6 +37,46 @@ function formatUser(list) {
   return _formatUserPicture(list);
 }
 
+/**
+ * 格式化数据的时间
+ * @param {Object} obj 数据
+ */
+function _formatDBTime(obj) {
+  obj.createdAtFormat = timeFormat(obj.createdAt);
+  obj.updatedAtFormat = timeFormat(obj.updatedAt);
+  return obj;
+}
+
+/**
+ * 格式化微博内容
+ * @param {Object} obj 微博数据对象
+ */
+function _formatContent(obj) {
+  obj.contentFormat = obj.content;
+
+  return obj;
+}
+
+/**
+ * 格式化博客信息
+ * @param {Array|Object} list 博客列表或者单个博客对象
+ */
+function formatBlog(list) {
+  if (list == null) {
+    return list;
+  }
+
+  if (list instanceof Array) {
+    return list.map(_formatDBTime).map(_formatContent);
+  }
+
+  let result = list;
+  result = _formatDBTime(result);
+  result = _formatContent(result);
+  return result;
+}
+
 module.exports = {
-  formatUser
+  formatUser,
+  formatBlog
 };
