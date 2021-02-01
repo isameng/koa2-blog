@@ -16,6 +16,7 @@ const { SESSION_SECRET_KEY } = require('./config/secretKeys');
 
 //路由
 const utilsAPIRouter = require('./routes/api/utils');
+const squareAPIRouter = require('./routes/api/blog-square');
 const profileAPIRouter = require('./routes/api/blog-profile');
 const homeAPIRouter = require('./routes/api/blog-home');
 const userAPIRouter = require('./routes/api/user');
@@ -83,6 +84,7 @@ app.use(
 // routes  allowedMethods: status为空或者404时，koa会自动设置header一些信息，并且直接返回失败
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods());
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
+app.use(squareAPIRouter.routes(), squareAPIRouter.allowedMethods());
 app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods());
 app.use(homeAPIRouter.routes(), homeAPIRouter.allowedMethods());
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods());
