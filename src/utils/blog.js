@@ -15,7 +15,6 @@ const BLOG_LIST_TPL = fs.readFileSync(path.join(__dirname, '..', 'views', 'widge
  * @param {boolean} canReply 是否可以回复
  */
 function getBlogListStr(blogList = [], canReply = false) {
-  console.log('BLOG_LIST_TPL == ', BLOG_LIST_TPL);
   return ejs.render(BLOG_LIST_TPL, {
     blogList,
     canReply

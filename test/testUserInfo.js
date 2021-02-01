@@ -9,5 +9,6 @@
  */
 
 module.exports = {
-  COOKIE: 'blog.sid=B1OT5FL0MGw_72rrwRqI5HAYtcwK3iq8; blog.sid.sig=Ejr1ex3b_Y8c0KcX0HDRxqBFsq0'
+  USER_NAME: 'zhangsan',
+  COOKIE: 'blog.sid=r9HofL8VY4r3gUQz422xL6506tNZ9kFg; blog.sid.sig=UTxEuY9s8gqt4pYaKpK7J5Ck3j8'
 };
