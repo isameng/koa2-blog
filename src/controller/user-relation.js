@@ -3,7 +3,7 @@
  * @author ameng
  */
 
-const { getUsersByFollower, addFollower, deleteFollower } = require('../services/user-relation');
+const { getUsersByFollower, addFollower, deleteFollower, getFollowersByUser } = require('../services/user-relation');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/ErrorInfo');
 
@@ -17,6 +17,19 @@ async function getFans(userId) {
   return new SuccessModel({
     count,
     fansList: userList
+  });
+}
+
+/**
+ * 获取关注人列表
+ * @param {number} userId 用户 id
+ */
+async function getFollowers(userId) {
+  const { count, userList } = await getFollowersByUser(userId);
+
+  return new SuccessModel({
+    count,
+    followersList: userList
   });
 }
 
@@ -42,7 +55,7 @@ async function follow(myUserId, curUserId) {
  */
 async function unFollow(myUserId, curUserId) {
   const result = await deleteFollower(myUserId, curUserId);
-  if(result) {
+  if (result) {
     return new SuccessModel();
   }
   return new ErrorModel(deleteFollowerFailInfo);
@@ -50,6 +63,7 @@ async function unFollow(myUserId, curUserId) {
 
 module.exports = {
   getFans,
+  getFollowers,
   follow,
   unFollow
 };

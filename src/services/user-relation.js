@@ -26,8 +26,35 @@ async function getUsersByFollower(followerId) {
   const userList = result.rows.map(row => {
     let user = row.dataValues;
     user = formatUser(user);
-    user.userRelations = user.userRelations.map(item => JSON.stringify(item.dataValues));
-    console.log(user);
+    // user.userRelations = user.userRelations.map(item => JSON.stringify(item.dataValues));
+    // console.log(user);
+    return user;
+  });
+
+  return { count: result.count, userList };
+}
+
+/**
+ * 获取关注人列表
+ * @param {number} userId 用户 id
+ */
+async function getFollowersByUser(userId) {
+  const result = await UserRelation.findAndCountAll({
+    order: [['id', 'desc']],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'userName', 'nickName', 'picture']
+      }
+    ],
+    where: {
+      userId
+    }
+  });
+
+  const userList = result.rows.map(row => {
+    let user = row.dataValues.user.dataValues;
+    user = formatUser(user);
     return user;
   });
 
@@ -64,6 +91,7 @@ async function deleteFollower(userId, followerId) {
 
 module.exports = {
   getUsersByFollower,
+  getFollowersByUser,
   addFollower,
   deleteFollower
 };
