@@ -9,6 +9,11 @@
  */
 
 module.exports = {
-  USER_NAME: 'zhangsan',
-  COOKIE: 'blog.sid=r9HofL8VY4r3gUQz422xL6506tNZ9kFg; blog.sid.sig=UTxEuY9s8gqt4pYaKpK7J5Ck3j8'
+  Z_ID: 2,
+  Z_USER_NAME: 'zhangsan',
+  Z_COOKIE: 'blog.sid=r9HofL8VY4r3gUQz422xL6506tNZ9kFg; blog.sid.sig=UTxEuY9s8gqt4pYaKpK7J5Ck3j8',
+
+  L_ID: 3,
+  L_USER_NAME: 'lisi',
+  L_COOKIE: 'blog.sid=iK3xNeF-hMBrv73W6P1Lo_SuhvRX7F7l; blog.sid.sig=PIPHCsvyV7BTA-nUa7uXvuZ8mGQ',
 };
