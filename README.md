@@ -64,7 +64,7 @@ author ameng
 
 
 
-           amIFollowed: userData.amIFollowed,
+          
                     atCount: userData.atCount
 
 

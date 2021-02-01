@@ -26,6 +26,7 @@ async function getUsersByFollower(followerId) {
   const userList = result.rows.map(row => {
     let user = row.dataValues;
     user = formatUser(user);
+    user.userRelations = user.userRelations.map(item => JSON.stringify(item.dataValues));
     console.log(user);
     return user;
   });
@@ -33,6 +34,36 @@ async function getUsersByFollower(followerId) {
   return { count: result.count, userList };
 }
 
+/**
+ * 添加关注关系
+ * @param {number} userId 用户 id
+ * @param {number} followerId 被关注用户 id
+ */
+async function addFollower(userId, followerId) {
+  const result = await UserRelation.create({
+    userId,
+    followerId
+  });
+  return result.dataValues;
+}
+
+/**
+ * 删除关注关系
+ * @param {number} userId 用户 id
+ * @param {number} followerId 被取消关注用户 id
+ */
+async function deleteFollower(userId, followerId) {
+  const result = await UserRelation.destroy({
+    where: {
+      userId,
+      followerId
+    }
+  });
+  return result > 0;
+}
+
 module.exports = {
-  getUsersByFollower
+  getUsersByFollower,
+  addFollower,
+  deleteFollower
 };
