@@ -6,6 +6,7 @@
 // services 的功能只对数据进行维护和管理, 不涉及到业务 业务都在controller
 const { User } = require('../db/model/index');
 const { formatUser } = require('./_format');
+const { addFollower } = require('./user-relation');
 
 /**
  * 获取用户信息
@@ -49,7 +50,11 @@ async function createUser({ userName, password, gender = 3, nickName }) {
     nickName: nickName ? nickName : userName,
     gender
   });
-  return result.dataValues;
+  //这里实现 自己关注自己（为了方便首页获取数据， 获取已关注人的博客）
+  const data = result.dataValues;
+  addFollower(data.id, data.id);
+
+  return data;
 }
 
 /**
