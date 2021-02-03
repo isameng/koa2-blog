@@ -6,6 +6,7 @@
 const User = require('./User');
 const Blog = require('./Blog');
 const UserRelation = require('./UserRelation');
+const AtRelation = require('./AtRelation');
 
 // A.hasOne(B); // A 有一个 B    A 和 B 之间存在一对一的关系,外键在目标模型(B)中定义.
 // A.belongsTo(B); // A 属于 B   A 和 B 之间存在一对一的关系,外键在源模型中定义(A)
@@ -40,8 +41,13 @@ Blog.belongsTo(UserRelation, {
   targetKey: 'followerId'
 });
 
+Blog.hasMany(AtRelation, {
+  foreignKey: 'blogId'
+});
+
 module.exports = {
   User,
   Blog,
-  UserRelation
+  UserRelation,
+  AtRelation
 };
