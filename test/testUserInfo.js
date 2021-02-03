@@ -11,7 +11,7 @@
 module.exports = {
   Z_ID: 1,
   Z_USER_NAME: 'zhangsan',
-  Z_COOKIE: 'blog.sid=V9MHgkVx3yraFj1flmY2_6PRW17uAx-A; blog.sid.sig=0ZFeksn6smPHcw9zqgjV-Rf9EgY',
+  Z_COOKIE: 'blog.sid=r9HofL8VY4r3gUQz422xL6506tNZ9kFg; blog.sid.sig=UTxEuY9s8gqt4pYaKpK7J5Ck3j8',
 
   L_ID: 2,
   L_USER_NAME: 'lisi',

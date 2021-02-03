@@ -22,25 +22,36 @@ test('张三关注李四，应该成功', async () => {
 
 //获取粉丝
 test('获取李四的粉丝，应该有张三', async () => {
-    const res = await getFans(L_ID);
-    const { count, fansList} = res.data;
-    const hasUserName = fansList.some(fanInfo => fanInfo.userName === Z_USER_NAME);
-    expect(count > 0).toBe(true);
-    expect(hasUserName).toBe(true);
-})
-
+  const res = await getFans(L_ID);
+  const { count, fansList } = res.data;
+  const hasUserName = fansList.some(fanInfo => fanInfo.userName === Z_USER_NAME);
+  expect(count > 0).toBe(true);
+  expect(hasUserName).toBe(true);
+});
 
 //获取关注人
-test('获取张三的关注人，应该有李四', async ()=> {
-    const res = await getFollowers(Z_ID);
-    const { count, followersList } = res.data;
-    const hasUserName = followersList.some(followerInfo => followerInfo.userName === L_USER_NAME);
-    expect(count > 0).toBe(true);
-    expect(hasUserName).toBe(true);
-})
+test('获取张三的关注人，应该有李四', async () => {
+  const res = await getFollowers(Z_ID);
+  const { count, followersList } = res.data;
+  const hasUserName = followersList.some(followerInfo => followerInfo.userName === L_USER_NAME);
+  expect(count > 0).toBe(true);
+  expect(hasUserName).toBe(true);
+});
+
+// 获取 at 列表
+test('获取张三的 at 列表，应该有李四', async () => {
+  const res = await server.get('/api/user/getAtList').set('cookie', Z_COOKIE);
+  const atList = res.body;
+  const hasUserName = await atList.some(item => {
+    // 昵称 - userName
+    return item.indexOf(`- ${L_USER_NAME}`) > 0;
+  });
+
+  expect(hasUserName).toBe(true);
+});
 
 //取消关注
 test('张三取消关注李四，应该成功', async () => {
-    const res = await server.post('/api/profile/unFollow').send({ userId: L_ID }).set('cookie', Z_COOKIE);
-    expect(res.body.errno).toBe(0);
-})
+  const res = await server.post('/api/profile/unFollow').send({ userId: L_ID }).set('cookie', Z_COOKIE);
+  expect(res.body.errno).toBe(0);
+});
