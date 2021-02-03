@@ -4,7 +4,16 @@
  */
 
 const router = require('koa-router')();
-const { isExist, register, login, deleteCurUser, changeInfo, changePassword, logout } = require('../../controller/user');
+const {
+  isExist,
+  register,
+  login,
+  deleteCurUser,
+  changeInfo,
+  changePassword,
+  logout
+} = require('../../controller/user');
+const { getFollowers } = require('../../controller/user-relation');
 const userValidate = require('../../validator/user');
 const { genValidator } = require('../../middleware/validator');
 const { loginCheck } = require('../../middleware/loginChecks');
@@ -60,6 +69,17 @@ router.patch('/changePassword', loginCheck, genValidator(userValidate), async (c
 //退出登录
 router.post('/logout', loginCheck, async (ctx, next) => {
   ctx.body = await logout(ctx);
+});
+
+//获取 @ 列表
+router.get('/getAtList', loginCheck, async (ctx, next) => {
+  const { id: userId } = ctx.session.userInfo;
+  const result = await getFollowers(userId);
+  const { followersList } = result.data;
+  const list = followersList.map(user => {
+    return `${user.nickName} - ${user.userName}`;
+  });
+  ctx.body = list;
 });
 
 module.exports = router;
