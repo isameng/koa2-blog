@@ -30,7 +30,8 @@
     <div class="col-4">
       <!-- 个人信息 -->
       <div class="right-item">
-        <%- include('widgets/user-info', { userInfo: userData.userInfo, isMe: true, amIFollowed: false });%>
+        <%- include('widgets/user-info', { userInfo: userData.userInfo, isMe: true, amIFollowed: false, atCount:
+        userData.atCount });%>
       </div>
 
       <!-- 粉丝 -->
