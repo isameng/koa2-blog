@@ -4,6 +4,13 @@
  */
 const router = require('koa-router')();
 
+router.get('/get-an-error', async (ctx, next) => {
+  // throw Error();
+  ctx.body = {
+    msg: 'xxx'
+  };
+});
+
 router.get('/error', async (ctx, next) => {
   await ctx.render('error');
 });

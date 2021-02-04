@@ -40,7 +40,7 @@ async function create({ userId, content, image }) {
 
     return new SuccessModel(blog);
   } catch (ex) {
-    console.log(ex.message, ex.stack); //stack 错误堆栈信息
+    console.error(ex.message, ex.stack); //stack 错误堆栈信息
     return new ErrorModel(createBlogFailInfo);
   }
 }
