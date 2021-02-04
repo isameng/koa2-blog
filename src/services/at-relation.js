@@ -62,7 +62,6 @@ async function getAtUserBlogList({ userId, pageIndex, pageSize = 10 }) {
   const blogList = result.rows.map(row => {
     const blog = formatBlog(row.dataValues);
     blog.user = formatUser(blog.user.dataValues);
-    console.log(blog);
     return blog;
   });
 

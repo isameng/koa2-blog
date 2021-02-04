@@ -15,5 +15,5 @@ module.exports = {
 
   L_ID: 2,
   L_USER_NAME: 'lisi',
-  L_COOKIE: 'blog.sid=iK3xNeF-hMBrv73W6P1Lo_SuhvRX7F7l; blog.sid.sig=PIPHCsvyV7BTA-nUa7uXvuZ8mGQ',
+  L_COOKIE: 'blog.sid=z6XuTo6HjTZof9n4ltEWMIdTlkD3E2n_; blog.sid.sig=w_nuhbHMCZjENFUhuqoKvsum0bU',
 };
