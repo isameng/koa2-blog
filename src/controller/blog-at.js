@@ -3,7 +3,7 @@
  * @author ameng
  */
 
-const { getAtRelationCount, getAtUserBlogList } = require('../services/at-relation');
+const { getAtRelationCount, getAtUserBlogList, updateAtRelation } = require('../services/at-relation');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { PAGE_SIZE } = require('../config/constant');
 
@@ -35,7 +35,20 @@ async function getAtMeBlogList(userId, pageIndex = 0) {
   });
 }
 
+/**
+ * 标记为已读
+ * @param {number} userId userId
+ */
+async function markAsRead(userId) {
+  try {
+    await updateAtRelation({ newIsRead: true }, { userId, isRead: false });
+  } catch (ex) {
+    console.log(ex);
+  }
+}
+
 module.exports = {
   getAtMeCount,
-  getAtMeBlogList
+  getAtMeBlogList,
+  markAsRead
 };
